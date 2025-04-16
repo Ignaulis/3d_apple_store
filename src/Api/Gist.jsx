@@ -1,6 +1,6 @@
-const url = 'https://gist.githubusercontent.com/Ignaulis/3a7f3cd8136880111206cd834b0d0c77/raw/f50c1b0ad5ef3f7aa6cfd98d8be39f8828820247/iphones.json'
+const url = 'https://gist.githubusercontent.com/Ignaulis/3a7f3cd8136880111206cd834b0d0c77/raw/d5b6fd161701f8b8fe1b0da46fcb014ade9b2f01/iphones.json'
 
-export const fetchedIphones = async () => {
+export const fetchedProducts = async () => {
 
     try {
         const res = await fetch(url)

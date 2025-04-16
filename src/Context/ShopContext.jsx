@@ -1,16 +1,16 @@
 import { createContext, useEffect, useState } from "react";
-import { fetchedIphones } from "../Api/Gist";
+import { fetchedProducts } from "../Api/Gist";
 
 export const ShopContext = createContext()
 
 export const ShopContextProvider = ({ children }) => {
 
-    const [iphones, setIphones] = useState([])
+    const [products, setProducts] = useState([])
 
     useEffect(() => {
         const getData = async () => {
-            const data = await fetchedIphones()
-            setIphones(data)
+            const data = await fetchedProducts()
+            setProducts(data)
         }
         getData()
     }, [])
@@ -18,7 +18,7 @@ export const ShopContextProvider = ({ children }) => {
     return (
         <ShopContext.Provider
             value={{
-                iphones
+                products
             }}
         >
             {children}
