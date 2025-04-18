@@ -1,11 +1,13 @@
 import Apple from '../../Assets/icons8-apple.svg';
-import Cart from '../../Assets/cart-shopping-svgrepo-com (1).svg';
+import CartSvg from '../../Assets/cart-shopping-svgrepo-com (1).svg';
 import SearchSvg from '../../Assets/icons8-search.svg';
 import Search from './Search';
 import { useState } from 'react';
 import ProductsNav from './ProductsNav';
 import { useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
+import Cart from './Cart';
+import Contact from './Contact';
 
 export default function NavBar() {
 
@@ -15,17 +17,30 @@ export default function NavBar() {
     const [hoverTimeout, setHoverTimeout] = useState(null)
     const [macVisible, setMacVisible] = useState(false)
     const [visionVisible, setVisionVisible] = useState(false)
+    const [cartVisible, setCartVisible] = useState(false)
+    const [contactVisible, setContactVisible] = useState(false)
 
     const iphones = products.filter(i => i.category === 'smartphones')
     const macs = products.filter(i => i.category === 'laptops')
     const vision = products.filter(i => i.category === 'mixed reality')
 
+    const handleVisibleSearchCart = (type) => {
+        if (type === 'search') {
+            setSearchVisible(prev => !prev)
+            setCartVisible(false)
+        }
+        if (type === 'cart') {
+            setCartVisible(prev => !prev)
+            setSearchVisible(false)
+        }
+    }
 
     const onMouseEnter = (category) => {
         if (hoverTimeout) clearTimeout(hoverTimeout)
         setIphonesVisible(category === 'iphone')
         setMacVisible(category === 'mac')
         setVisionVisible(category === 'vision')
+        setContactVisible(category === 'contact')
     }
 
     const onMouseLeave = () => {
@@ -33,6 +48,7 @@ export default function NavBar() {
             setIphonesVisible(false)
             setMacVisible(false)
             setVisionVisible(false)
+            setContactVisible(false)
         }, 500)
         setHoverTimeout(time)
     }
@@ -43,11 +59,11 @@ export default function NavBar() {
                 <div className="py-3 flex justify-center mx-6">
                     <div className="w-200 text-gray-200 text-md flex justify-between items-center">
                         <div>
-                            <img
+                            <a href="#"><img
                                 src={Apple}
                                 alt='apple'
                                 className='w-6 cursor-pointer'
-                            />
+                            /></a>
                         </div>
                         <div className='w-100 text-md flex justify-between hover:text-white [@media(max-width:640px)]:w-80 [@media(max-width:550px)]:justify-center gap-6'>
                             <span
@@ -66,6 +82,8 @@ export default function NavBar() {
                                 className=' cursor-pointer'
                             >Vision</span>
                             <span
+                                onMouseEnter={() => onMouseEnter('contact')}
+                                onMouseLeave={onMouseLeave}
                                 className=' cursor-pointer'
                             >Contact</span>
                         </div>
@@ -74,12 +92,13 @@ export default function NavBar() {
                                 src={SearchSvg}
                                 alt="search"
                                 className='w-5 cursor-pointer'
-                                onClick={() => setSearchVisible(prev => !prev)}
+                                onClick={() => handleVisibleSearchCart('search')}
                             />
                             <img
-                                src={Cart}
+                                src={CartSvg}
                                 alt="cart"
                                 className='w-5 cursor-pointer'
+                                onClick={() => handleVisibleSearchCart('cart')}
                             />
                         </div>
                     </div>
@@ -90,6 +109,8 @@ export default function NavBar() {
                 <ProductsNav visible={iphonesVisible} enter={() => onMouseEnter('iphone')} leave={onMouseLeave} data={iphones} />
                 <ProductsNav visible={macVisible} enter={() => onMouseEnter('mac')} leave={onMouseLeave} data={macs} />
                 <ProductsNav visible={visionVisible} enter={() => onMouseEnter('vision')} leave={onMouseLeave} data={vision} />
+                <Contact contactVisible={contactVisible} enter={() => onMouseEnter('contact')} leave={onMouseLeave} />
+                <Cart cartVisible={cartVisible} />
             </div>
         </>
     );
