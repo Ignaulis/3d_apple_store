@@ -6,7 +6,7 @@ export const ShopContext = createContext()
 export const ShopContextProvider = ({ children }) => {
 
     const [products, setProducts] = useState([])
-    const [orderTrue, setOrderTrue] = useState(false)
+    const [orderTrue, setOrderTrue] = useState(true)
     const isMobile = innerWidth <= 550
 
     useEffect(() => {

@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import Cart from './Cart';
 import Contact from './Contact';
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
 
@@ -77,11 +78,11 @@ export default function NavBar() {
                 <div className="py-3 flex justify-center mx-6">
                     <div className="w-200 text-gray-200 text-md flex justify-between items-center">
                         <div>
-                            <a href="#"><img
+                            <Link to={'/'}><img
                                 src={Apple}
                                 alt='apple'
                                 className='w-6 cursor-pointer'
-                            /></a>
+                            /></Link>
                         </div>
                         <div className={`w-100 text-md flex justify-between hover:text-white ${isMobile && 'w-80 justify-center gap-6'} [@media(max-width:640px)]:w-80 [@media(max-width:550px)]:justify-center gap-6`}>
                             <span

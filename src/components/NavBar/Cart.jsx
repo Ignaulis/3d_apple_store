@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
+import { Link } from "react-router-dom";
 
 export default function Cart({ cartVisible }) {
 
@@ -11,7 +12,7 @@ export default function Cart({ cartVisible }) {
                 orderTrue
                     ?
                     (
-                        <div className="text-gray-200 py-3 w-200 mx-6 gap-50 items-end mb-8 flex justify-between">
+                        <div className="text-gray-200 py-3 w-200 mx-6 items-end mb-8 flex justify-between">
                             <div className="flex flex-col gap-8">
                                 <span className="text-2xl">Bag</span>
                                 <div className="flex gap-10">
@@ -19,10 +20,11 @@ export default function Cart({ cartVisible }) {
                                     <span>item info</span>
                                 </div>
                             </div>
-                            <div className="">
-                                <button
-                                    className="bg-blue-700 p-2 rounded cursor-pointer transition-all 0.2s hover:bg-blue-600"
-                                >View Order</button>
+                            <div className="w-max">
+                                <Link
+                                    to={`/cart`}
+                                    className="bg-blue-700 p-3 rounded cursor-pointer transition-all 0.2s hover:bg-blue-600"
+                                >View Order</Link>
                             </div>
                         </div>
                     )

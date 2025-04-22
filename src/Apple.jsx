@@ -1,17 +1,28 @@
 import { ShopContextProvider } from "./Context/ShopContext";
-import Main from "./Pages/Main";
-import Router from "./Router/Router";
+import Home from "./Pages/Home";
+import Page404 from "./Pages/Page404";
+import Products from "./Pages/Products";
+import Product from "./Pages/Product";
 import NavBar from "./components/NavBar/NavBar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Cart from "./Pages/Cart";
 
 
 export default function Apple() {
 
     return (
-        <Router>
-            <ShopContextProvider>
+        <ShopContextProvider>
+            <BrowserRouter>
                 <NavBar />
-                <Main />
-            </ShopContextProvider>
-        </Router>
+                <Routes>
+                    <Route path="/" element={<Home />}/>
+                    <Route path="/products/:id" element={<Products />}/>
+                    <Route path="/product/:id" element={<Product />}/>
+                    <Route path="/cart" element={<Cart />}/>
+                    <Route path="*" element={<Page404 />}/>
+                </Routes>
+            </BrowserRouter>
+        </ShopContextProvider>
+
     );
 }
