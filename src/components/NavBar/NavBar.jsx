@@ -11,7 +11,7 @@ import Contact from './Contact';
 
 export default function NavBar() {
 
-    const { products } = useContext(ShopContext)
+    const { products, isMobile } = useContext(ShopContext)
     const [searchVisible, setSearchVisible] = useState(false)
     const [iphonesVisible, setIphonesVisible] = useState(false)
     const [hoverTimeout, setHoverTimeout] = useState(null)
@@ -25,6 +25,12 @@ export default function NavBar() {
     const vision = products.filter(i => i.category === 'mixed reality')
 
     const handleVisibleSearchCart = (type) => {
+
+        setContactVisible(false)
+        setIphonesVisible(false)
+        setMacVisible(false)
+        setVisionVisible(false)
+
         if (type === 'search') {
             setSearchVisible(prev => !prev)
             setCartVisible(false)
@@ -33,6 +39,17 @@ export default function NavBar() {
             setCartVisible(prev => !prev)
             setSearchVisible(false)
         }
+    }
+
+    const onMobileClick = (category) => {
+
+        setCartVisible(false)
+        setSearchVisible(false)
+
+        setIphonesVisible(prev => category === 'iphone' ? !prev : false)
+        setMacVisible(prev => category === 'mac' ? !prev : false)
+        setVisionVisible(prev => category === 'vision' ? !prev : false)
+        setContactVisible(prev => category === 'contact' ? !prev : false)
     }
 
     const onMouseEnter = (category) => {
@@ -53,6 +70,7 @@ export default function NavBar() {
         setHoverTimeout(time)
     }
 
+
     return (
         <>
             <div className="w-full h-max bg-gray-900 z-20 overflow-hidden relative">
@@ -65,25 +83,63 @@ export default function NavBar() {
                                 className='w-6 cursor-pointer'
                             /></a>
                         </div>
-                        <div className='w-100 text-md flex justify-between hover:text-white [@media(max-width:640px)]:w-80 [@media(max-width:550px)]:justify-center gap-6'>
+                        <div className={`w-100 text-md flex justify-between hover:text-white ${isMobile && 'w-80 justify-center gap-6'} [@media(max-width:640px)]:w-80 [@media(max-width:550px)]:justify-center gap-6`}>
                             <span
-                                onMouseEnter={() => onMouseEnter('iphone')}
-                                onMouseLeave={onMouseLeave}
+                                {...(isMobile ?
+                                    { onClick: () => onMobileClick('iphone') }
+                                    :
+                                    {
+                                        onMouseEnter: () => onMouseEnter('iphone'),
+                                        onMouseLeave: onMouseLeave
+                                    }
+                                )}
                                 className=' cursor-pointer'
                             >iPhone</span>
                             <span
-                                onMouseEnter={() => onMouseEnter('mac')}
-                                onMouseLeave={onMouseLeave}
+                                {
+                                ...(isMobile
+                                    ?
+                                    { onClick: () => onMobileClick('mac') }
+                                    :
+                                    {
+                                        onMouseEnter: () => onMouseEnter('mac'),
+                                        onMouseLeave: onMouseLeave
+                                    }
+                                )
+                                }
+
                                 className=' cursor-pointer'
                             >Mac</span>
                             <span
-                                onMouseEnter={() => onMouseEnter('vision')}
-                                onMouseLeave={onMouseLeave}
+                                {
+                                ...(isMobile
+                                    ?
+                                    {
+                                        onClick: () => onMobileClick('vision')
+                                    }
+                                    :
+                                    {
+                                        onMouseEnter: () => onMouseEnter('vision'),
+                                        onMouseLeave: onMouseLeave
+                                    }
+                                )
+                                }
+
                                 className=' cursor-pointer'
                             >Vision</span>
                             <span
-                                onMouseEnter={() => onMouseEnter('contact')}
-                                onMouseLeave={onMouseLeave}
+                                {
+                                ...(isMobile
+                                    ?
+                                    { onClick: () => onMobileClick('contact') }
+                                    :
+                                    {
+                                        onMouseEnter: () => onMouseEnter('contact'),
+                                        onMouseLeave: onMouseLeave
+                                    }
+                                )
+                                }
+
                                 className=' cursor-pointer'
                             >Contact</span>
                         </div>

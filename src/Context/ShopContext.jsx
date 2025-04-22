@@ -6,7 +6,8 @@ export const ShopContext = createContext()
 export const ShopContextProvider = ({ children }) => {
 
     const [products, setProducts] = useState([])
-    const [orderTrue, setOrderTrue] = useState(true)
+    const [orderTrue, setOrderTrue] = useState(false)
+    const isMobile = innerWidth <= 550
 
     useEffect(() => {
         const getData = async () => {
@@ -21,7 +22,8 @@ export const ShopContextProvider = ({ children }) => {
             value={{
                 products,
                 orderTrue,
-                setOrderTrue
+                setOrderTrue,
+                isMobile
             }}
         >
             {children}
