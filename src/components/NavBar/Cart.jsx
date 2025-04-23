@@ -16,7 +16,7 @@ export default function Cart({ cartVisible }) {
                             <div className="flex flex-col gap-8">
                                 <span className="text-2xl">Bag</span>
                                 <div className="flex gap-10">
-                                    <img src="" alt="item image" />
+                                    {/* <img src="" alt="item image" /> */}
                                     <span>item info</span>
                                 </div>
                             </div>
