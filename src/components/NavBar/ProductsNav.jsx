@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export default function ProductsNav({ visible, data, enter, leave }) {
 
     const category = data[0]?.category || ''
+    
 
     const { isMobile } = useContext(ShopContext)
 

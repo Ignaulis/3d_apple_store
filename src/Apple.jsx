@@ -16,8 +16,8 @@ export default function Apple() {
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<Home />}/>
-                    <Route path="/products/:id" element={<Products />}/>
-                    <Route path="/product/:id" element={<Product />}/>
+                    <Route path="/products/:categoryId" element={<Products />}/>
+                    <Route path="/product/:productId" element={<Product />}/>
                     <Route path="/cart" element={<Cart />}/>
                     <Route path="*" element={<Page404 />}/>
                 </Routes>
