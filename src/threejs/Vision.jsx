@@ -6,8 +6,13 @@ import { ShopContext } from "../Context/ShopContext";
 function VisionModel() {
 
     const visionRef = useRef()
+    const {products} = useContext(ShopContext)
+    if(!products) {
+        return <div className="p-4">Loading product...</div>
+    }
+    const appleVision = products.find(i => i.category === 'mixed reality')
 
-    const vision = useGLTF('/apple_vision_pro/scene.gltf')
+    const vision = useGLTF(appleVision.three)
 
     useFrame((_, delta) => {
         if (visionRef.current) {

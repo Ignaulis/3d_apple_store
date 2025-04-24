@@ -26,7 +26,7 @@ export default function Slide({ title, price, img, des, id }) {
                     <div className="flex flex-col justify-center items-center">
                         <Link className="p-3 h-max w-max bg-blue-600 text-white rounded-xl text-md cursor-pointer hover:bg-blue-500 transition-all 0.2s" to={`/product/${id}`}>Learn More</Link>
                     </div>
-                    <button onClick={() => handleOrder(id)} className="p-3 h-max w-max bg-green-600 text-white rounded-xl text-md cursor-pointer hover:bg-green-500 transition-all 0.2s" to={`/product/${id}`}>Add To Cart</button>
+                    <button onClick={() => handleOrder(id)} className="p-3 h-max w-max bg-green-600 text-white rounded-xl text-md cursor-pointer hover:bg-green-500 transition-all 0.2s">Add To Cart</button>
                 </div>
                 
             </div>
