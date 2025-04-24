@@ -1,4 +1,4 @@
-const url = 'https://gist.githubusercontent.com/Ignaulis/3a7f3cd8136880111206cd834b0d0c77/raw/d5b6fd161701f8b8fe1b0da46fcb014ade9b2f01/iphones.json'
+const url = 'https://gist.githubusercontent.com/Ignaulis/3a7f3cd8136880111206cd834b0d0c77/raw/070d8691786141d7c8a12cd9ed9b216f8ecb44fd/iphones.json'
 
 export const fetchedProducts = async () => {
 
