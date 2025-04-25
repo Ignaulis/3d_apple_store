@@ -172,7 +172,7 @@ export default function NavBar() {
                 </div>
             </div>
             <div className="w-full h-max relative z-0">
-                <Search searchVisible={searchVisible} />
+                <Search setSearchVisible={setSearchVisible} searchVisible={searchVisible} />
                 <ProductsNav visible={iphonesVisible} enter={() => onMouseEnter('iphone')} leave={onMouseLeave} data={iphones} />
                 <ProductsNav visible={macVisible} enter={() => onMouseEnter('mac')} leave={onMouseLeave} data={macs} />
                 <ProductsNav visible={visionVisible} enter={() => onMouseEnter('vision')} leave={onMouseLeave} data={vision} />

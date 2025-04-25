@@ -41,11 +41,11 @@ export default function Cart({ cartVisible, setCartVisible }) {
                                 <div className="text-2xl">Your Total: ${total}</div>
 
                             </div>
-                            <div className="w-max">
+                            <div className="w-max h-max">
                                 <Link
                                     onClick={() => setCartVisible(false)}
                                     to={`/cart`}
-                                    className="bg-blue-700 p-3 rounded cursor-pointer transition-all 0.2s hover:bg-blue-600"
+                                    className="bg-blue-700 p-3 h-max rounded cursor-pointer transition-all 0.2s hover:bg-blue-600"
                                 >View Order</Link>
                             </div>
                         </div>
