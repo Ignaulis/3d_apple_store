@@ -36,7 +36,6 @@ export default function Vision() {
     const {isMobile} = useContext(ShopContext)
 
     return (
-        <div className="w-full md:w-7/12 h-[400px] md:h-[500px] relative -z-10">
             <Canvas
                 className="w-full h-full absolute inset-0 "
                 camera={{ position: [0, 0, 0], fov: isMobile ? 65 : 54 }}
@@ -44,6 +43,5 @@ export default function Vision() {
                 <Environment preset="city" />
                 <VisionModel />
             </Canvas>
-        </div>
     );
 }

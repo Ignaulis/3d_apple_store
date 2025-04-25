@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ShopContext } from "../../Context/ShopContext"
 import star from '../../Assets/star-svgrepo-com (1).svg'
 import starHalf from '../../Assets/star-half-svgrepo-com (1).svg'
@@ -6,9 +6,13 @@ import starHalf from '../../Assets/star-half-svgrepo-com (1).svg'
 export default function ProductInfo({ data }) {
 
     const { setOrder } = useContext(ShopContext)
+    const [stockTotal, setStockTotal] = useState(data.stock)
 
     const handleOrder = () => {
-        setOrder(prev => [...prev, data])
+        if (stockTotal > 0) {
+            setOrder(prev => [...prev, data])
+            setStockTotal(prev => prev - 1)
+        }
     }
 
     if (!data) {
@@ -32,7 +36,7 @@ export default function ProductInfo({ data }) {
             <p className="text-xl">{data.description}</p>
             <div className="flex gap-2 items-end">
                 <button onClick={handleOrder} className="p-3 h-max w-max bg-green-600 text-white rounded-xl text-md cursor-pointer hover:bg-green-500 transition-all 0.2s">Add To Cart</button>
-                <span className="text-md ml-1">In Stock <span className="font-bold">{data.stock}</span></span>
+                <span className="text-md ml-1">{stockTotal === 0 ? 'Out Of Stock' : 'In Stock'} <span className="font-bold">{stockTotal === 0 ? null : stockTotal}</span></span>
             </div>
 
         </div>

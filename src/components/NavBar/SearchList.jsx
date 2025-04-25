@@ -26,7 +26,7 @@ export default function SearchList({ text, setText, searchVisible, setSearchVisi
 
 
     return (
-        <div className={`absolute flex w-full items-center flex-col ${find !== null ? 'px-5 py-5' : null} gap-5 bg-gray-500 w-full transition-all duration-400 ease-out transform ${searchVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}>
+        <div className={`absolute flex w-full items-center flex-col ${find !== null ? 'px-5 py-5' : null} gap-5 bg-gray-800 w-full transition-all duration-400 ease-out transform ${searchVisible ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'}`}>
             {
                 find !== null &&
                 find.map((item, index) => (

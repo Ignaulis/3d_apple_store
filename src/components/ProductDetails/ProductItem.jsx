@@ -16,7 +16,7 @@ export default function ProductItem() {
     }
 
     return (
-        <div className="w-full h-[700px] flex flex-col items-center mx-4">
+        <div className="w-full h-[700px] flex flex-col items-center px-4">
                 <h3 className="text-5xl text-gray-800">{data.title}</h3>
             <div className="flex w-full h-[500px] flex-wrap justify-center">
                 <div className="md:w-1/2 w-[300px] h-full -z-10">

@@ -23,8 +23,8 @@ export default function Cart({ cartVisible, setCartVisible }) {
                 orderTrue
                     ?
                     (
-                        <div className="text-gray-200 py-3 w-200 mx-6 items-end mb-8 flex justify-between">
-                            <div className="flex flex-col gap-8">
+                        <div className="text-gray-200 py-3 gap-10 w-200 mx-6 items-end mb-8 flex justify-between flex-wrap">
+                            <div className="flex flex-col w-full gap-8">
                                 <span className="text-2xl">Bag</span>
                                 {
                                     order.map((p, i) => (
@@ -38,10 +38,10 @@ export default function Cart({ cartVisible, setCartVisible }) {
                                         </div>
                                     ))
                                 }
-                                <div className="text-2xl">Your Total: ${total}</div>
 
                             </div>
-                            <div className="w-max h-max">
+                            <div className="w-full flex justify-between h-max">
+                            <div className="text-2xl">Your Total: ${total}</div>
                                 <Link
                                     onClick={() => setCartVisible(false)}
                                     to={`/cart`}

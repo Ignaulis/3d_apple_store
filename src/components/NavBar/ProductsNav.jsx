@@ -2,12 +2,18 @@ import { useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import { Link } from "react-router-dom";
 
-export default function ProductsNav({ visible, data, enter, leave }) {
+export default function ProductsNav({ visible, data, enter, leave, setV }) {
 
     const category = data[0]?.category || ''
     
 
     const { isMobile } = useContext(ShopContext)
+
+    const handleClick = () => {
+        if(isMobile) {
+            setV(false)
+        }
+    }
 
     return (
         <div
@@ -26,10 +32,10 @@ export default function ProductsNav({ visible, data, enter, leave }) {
                     <div className="flex flex-col gap-4">
                         {
                             data.map((n, i) => (
-                                <Link to={`/product/${n.id}`} className="text-gray-200 text-xl cursor-pointer w-max hover:text-white" key={i} >{n.title}</Link>
+                                <Link onClick={() => handleClick()} to={`/product/${n.id}`} className="text-gray-200 text-xl cursor-pointer w-max hover:text-white" key={i} >{n.title}</Link>
                             ))
                         }
-                        <Link to={`/products/${category}`} className="cursor-pointer text-gray-200 mt-3 hover:text-white">
+                        <Link onClick={() => handleClick()} to={`/products/${category}`} className="cursor-pointer text-gray-200 mt-3 hover:text-white">
                             View All
                         </Link>
                     </div>
