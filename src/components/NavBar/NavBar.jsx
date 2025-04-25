@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 
 export default function NavBar() {
 
-    const { products, isMobile } = useContext(ShopContext)
+    const { products, isMobile, order, orderTrue } = useContext(ShopContext)
     const [searchVisible, setSearchVisible] = useState(false)
     const [iphonesVisible, setIphonesVisible] = useState(false)
     const [hoverTimeout, setHoverTimeout] = useState(null)
@@ -151,12 +151,22 @@ export default function NavBar() {
                                 className='w-5 cursor-pointer'
                                 onClick={() => handleVisibleSearchCart('search')}
                             />
-                            <img
-                                src={CartSvg}
-                                alt="cart"
-                                className='w-5 cursor-pointer'
-                                onClick={() => handleVisibleSearchCart('cart')}
-                            />
+                            <div className="relative w-5 h-5">
+                                <img
+                                    src={CartSvg}
+                                    alt="cart"
+                                    className='w-5 h-5 cursor-pointer'
+                                    onClick={() => handleVisibleSearchCart('cart')}
+                                />
+                                <div
+                                    className={`absolute top-0 -right-2 bg-green-300 rounded-full text-black text-xs w-4 h-4 cursor-pointer flex items-center justify-center ${orderTrue ? 'opacity-100' : 'opacity-0'}`}
+                                    onClick={() => handleVisibleSearchCart('cart')}>
+                                    {
+                                        order.length
+                                    }
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,7 +177,7 @@ export default function NavBar() {
                 <ProductsNav visible={macVisible} enter={() => onMouseEnter('mac')} leave={onMouseLeave} data={macs} />
                 <ProductsNav visible={visionVisible} enter={() => onMouseEnter('vision')} leave={onMouseLeave} data={vision} />
                 <Contact contactVisible={contactVisible} enter={() => onMouseEnter('contact')} leave={onMouseLeave} />
-                <Cart cartVisible={cartVisible} />
+                <Cart setCartVisible={setCartVisible} cartVisible={cartVisible} />
             </div>
         </>
     );

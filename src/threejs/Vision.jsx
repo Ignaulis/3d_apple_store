@@ -7,10 +7,12 @@ function VisionModel() {
 
     const visionRef = useRef()
     const {products} = useContext(ShopContext)
-    if(!products) {
+    
+    const appleVision = products.find(i => i.category === 'mixed reality')
+
+    if(!appleVision) {
         return <div className="p-4">Loading product...</div>
     }
-    const appleVision = products.find(i => i.category === 'mixed reality')
 
     const vision = useGLTF(appleVision.three)
 
@@ -24,7 +26,6 @@ function VisionModel() {
         <primitive
             object={vision.scene}
             position={[0, 0, -1]}
-            rotation={[0, 4.2, 0]}
             ref={visionRef}
         />
     );

@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import { Link } from "react-router-dom";
 
-export default function Cart({ cartVisible }) {
+export default function Cart({ cartVisible, setCartVisible }) {
 
     const { orderTrue, setOrderTrue, order, setOrder } = useContext(ShopContext)
 
@@ -43,6 +43,7 @@ export default function Cart({ cartVisible }) {
                             </div>
                             <div className="w-max">
                                 <Link
+                                    onClick={() => setCartVisible(false)}
                                     to={`/cart`}
                                     className="bg-blue-700 p-3 rounded cursor-pointer transition-all 0.2s hover:bg-blue-600"
                                 >View Order</Link>

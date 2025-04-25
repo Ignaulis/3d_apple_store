@@ -1,5 +1,6 @@
-import { Canvas } from "@react-three/fiber"
-import { useGLTF, Environment, OrbitControls, Center } from "@react-three/drei"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { useGLTF, Environment, Center } from "@react-three/drei"
+import { useRef } from "react"
 
 const SCALE_MAP = {
     'iPhone 12 Pro': 0.035,
@@ -12,6 +13,25 @@ const SCALE_MAP = {
     'Apple Vision Pro': 3,
 }
 
+function Model({ scale, url }) {
+
+    const objectRef = useRef()
+    const { scene } = useGLTF(url)
+
+
+    useFrame((_, delta) => {
+        if (objectRef) {
+            objectRef.current.rotation.y += delta
+        }
+    })
+
+    return (
+        <primitive object={scene} ref={objectRef} scale={scale} position={[0, 0, 0]} />
+    );
+}
+
+
+
 export default function Product3d({ data }) {
 
     if (!data || !data.three) {
@@ -20,15 +40,13 @@ export default function Product3d({ data }) {
 
     let size = SCALE_MAP[data.title] || 1
 
-    const item = useGLTF(data.three)
-
     return (
-        <Canvas camera={{ position: [0, 0, -5], fov: 45 }} className="cursor-grab">
+        <Canvas camera={{ position: [0, 0, -5], fov: 45 }}>
             <Center>
-                <primitive object={item.scene} scale={size} position={[0, 0, 0]} />
+                <Model url={data.three} scale={size} />
             </Center>
-            <OrbitControls enableZoom />
             <Environment preset="city" />
         </Canvas>
     )
 }
+
