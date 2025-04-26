@@ -35,7 +35,7 @@ function Model({ scale, url }) {
 export default function Product3d({ data }) {
 
     if (!data || !data.three) {
-        return <div className="p-4">Loading product...</div>
+        return null
     }
 
     let size = SCALE_MAP[data.title] || 1
