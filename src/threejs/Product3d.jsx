@@ -16,6 +16,9 @@ const SCALE_MAP = {
 function Model({ scale, url }) {
 
     const objectRef = useRef()
+    if (!url) {
+        return null
+    }
     const { scene } = useGLTF(url)
 
 
