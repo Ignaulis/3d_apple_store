@@ -2,7 +2,7 @@ import Apple from '../../Assets/icons8-apple.svg';
 import CartSvg from '../../Assets/cart-shopping-svgrepo-com (1).svg';
 import SearchSvg from '../../Assets/icons8-search.svg';
 import Search from './Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductsNav from './ProductsNav';
 import { useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
@@ -13,80 +13,84 @@ import hamburg from '../../Assets/menu-symbol-of-three-parallel-lines-svgrepo-co
 
 export default function NavBar() {
 
-    const { products, isMobile, order, orderTrue } = useContext(ShopContext)
-    const [searchVisible, setSearchVisible] = useState(false)
-    const [iphonesVisible, setIphonesVisible] = useState(false)
-    const [hoverTimeout, setHoverTimeout] = useState(null)
-    const [macVisible, setMacVisible] = useState(false)
-    const [visionVisible, setVisionVisible] = useState(false)
-    const [cartVisible, setCartVisible] = useState(false)
-    const [contactVisible, setContactVisible] = useState(false)
-    const [hamburgMenu, setHamburgMenu] = useState(false)
+    const { products, order, orderTrue } = useContext(ShopContext);
+    const [searchVisible, setSearchVisible] = useState(false);
+    const [iphonesVisible, setIphonesVisible] = useState(false);
+    const [hoverTimeout, setHoverTimeout] = useState(null);
+    const [macVisible, setMacVisible] = useState(false);
+    const [visionVisible, setVisionVisible] = useState(false);
+    const [cartVisible, setCartVisible] = useState(false);
+    const [contactVisible, setContactVisible] = useState(false);
+    const [hamburgMenu, setHamburgMenu] = useState(false);
+    const [isMobileLocal, setIsMobileLocal] = useState(window.innerWidth < 640); // Pradinė būsena
 
-    const iphones = products.filter(i => i.category === 'smartphones')
-    const macs = products.filter(i => i.category === 'laptops')
-    const vision = products.filter(i => i.category === 'mixed reality')
+    const iphones = products.filter(i => i.category === 'smartphones');
+    const macs = products.filter(i => i.category === 'laptops');
+    const vision = products.filter(i => i.category === 'mixed reality');
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobileLocal(window.innerWidth < 640);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const handleVisibleSearchCart = (type) => {
-
-        setContactVisible(false)
-        setIphonesVisible(false)
-        setMacVisible(false)
-        setVisionVisible(false)
+        setContactVisible(false);
+        setIphonesVisible(false);
+        setMacVisible(false);
+        setVisionVisible(false);
 
         if (type === 'search') {
-            setSearchVisible(prev => !prev)
-            setCartVisible(false)
+            setSearchVisible(prev => !prev);
+            setCartVisible(false);
         }
         if (type === 'cart') {
-            setCartVisible(prev => !prev)
-            setSearchVisible(false)
+            setCartVisible(prev => !prev);
+            setSearchVisible(false);
         }
-    }
+    };
 
     const handleHamburgClick = () => {
-        setHamburgMenu(prev => !prev)
-
-        setIphonesVisible(false)
-        setContactVisible(false)
-        setMacVisible(false)
-        setVisionVisible(false)
-
-    }
+        setHamburgMenu(prev => !prev);
+        setIphonesVisible(false);
+        setContactVisible(false);
+        setMacVisible(false);
+        setVisionVisible(false);
+    };
 
     const onMobileClick = (category) => {
-
         if (hamburgMenu) {
-            setHamburgMenu(false)
+            setHamburgMenu(false);
         }
-
-        setCartVisible(false)
-        setSearchVisible(false)
-
-        setIphonesVisible(prev => category === 'iphone' ? !prev : false)
-        setMacVisible(prev => category === 'mac' ? !prev : false)
-        setVisionVisible(prev => category === 'vision' ? !prev : false)
-        setContactVisible(prev => category === 'contact' ? !prev : false)
-    }
+        setCartVisible(false);
+        setSearchVisible(false);
+        setIphonesVisible(prev => category === 'iphone' ? !prev : false);
+        setMacVisible(prev => category === 'mac' ? !prev : false);
+        setVisionVisible(prev => category === 'vision' ? !prev : false);
+        setContactVisible(prev => category === 'contact' ? !prev : false);
+    };
 
     const onMouseEnter = (category) => {
-        if (hoverTimeout) clearTimeout(hoverTimeout)
-        setIphonesVisible(category === 'iphone')
-        setMacVisible(category === 'mac')
-        setVisionVisible(category === 'vision')
-        setContactVisible(category === 'contact')
-    }
+        if (hoverTimeout) clearTimeout(hoverTimeout);
+        setIphonesVisible(category === 'iphone');
+        setMacVisible(category === 'mac');
+        setVisionVisible(category === 'vision');
+        setContactVisible(category === 'contact');
+    };
 
     const onMouseLeave = () => {
         const time = setTimeout(() => {
-            setIphonesVisible(false)
-            setMacVisible(false)
-            setVisionVisible(false)
-            setContactVisible(false)
-        }, 500)
-        setHoverTimeout(time)
-    }
-
+            setIphonesVisible(false);
+            setMacVisible(false);
+            setVisionVisible(false);
+            setContactVisible(false);
+        }, 500);
+        setHoverTimeout(time);
+    };
 
     return (
         <>
@@ -101,11 +105,11 @@ export default function NavBar() {
                             /></Link>
                         </div>
                         {
-                            !isMobile &&
+                            !isMobileLocal &&
                             (
-                                <div className={`w-100 text-md flex justify-between hover:text-white ${isMobile && 'w-80 justify-center gap-6'} [@media(max-width:640px)]:w-80 [@media(max-width:550px)]:justify-center gap-6`}>
+                                <div className={`w-100 text-md flex justify-between hover:text-white ${isMobileLocal && 'w-80 justify-center gap-6'} [@media(max-width:640px)]:w-80 [@media(max-width:550px)]:justify-center gap-6`}>
                                     <span
-                                        {...(isMobile ?
+                                        {...(isMobileLocal ?
                                             { onClick: () => onMobileClick('iphone') }
                                             :
                                             {
@@ -116,8 +120,7 @@ export default function NavBar() {
                                         className=' cursor-pointer'
                                     >iPhone</span>
                                     <span
-                                        {
-                                        ...(isMobile
+                                        {...(isMobileLocal
                                             ?
                                             { onClick: () => onMobileClick('mac') }
                                             :
@@ -125,14 +128,11 @@ export default function NavBar() {
                                                 onMouseEnter: () => onMouseEnter('mac'),
                                                 onMouseLeave: onMouseLeave
                                             }
-                                        )
-                                        }
-
+                                        )}
                                         className=' cursor-pointer'
                                     >Mac</span>
                                     <span
-                                        {
-                                        ...(isMobile
+                                        {...(isMobileLocal
                                             ?
                                             {
                                                 onClick: () => onMobileClick('vision')
@@ -142,14 +142,11 @@ export default function NavBar() {
                                                 onMouseEnter: () => onMouseEnter('vision'),
                                                 onMouseLeave: onMouseLeave
                                             }
-                                        )
-                                        }
-
+                                        )}
                                         className=' cursor-pointer'
                                     >Vision</span>
                                     <span
-                                        {
-                                        ...(isMobile
+                                        {...(isMobileLocal
                                             ?
                                             { onClick: () => onMobileClick('contact') }
                                             :
@@ -157,18 +154,13 @@ export default function NavBar() {
                                                 onMouseEnter: () => onMouseEnter('contact'),
                                                 onMouseLeave: onMouseLeave
                                             }
-                                        )
-                                        }
-
+                                        )}
                                         className=' cursor-pointer'
                                     >Contact</span>
                                 </div>
                             )
                         }
-
-
                         <div className='flex gap-5'>
-
                             <img
                                 src={SearchSvg}
                                 alt="search"
@@ -189,10 +181,9 @@ export default function NavBar() {
                                         order.length
                                     }
                                 </div>
-
                             </div>
                             {
-                                isMobile &&
+                                isMobileLocal &&
                                 (
                                     <div className="w-5 h-5 cursor-pointer" onClick={handleHamburgClick}>
                                         <img src={hamburg} alt="menu" />
@@ -209,9 +200,8 @@ export default function NavBar() {
                     (
                         <div className={`w-full p-4 text-xl gap-5 flex flex-col absolute text-gray-200 bg-gray-800 items-end hover:text-white z-50`}
                         >
-
                             <span
-                                {...(isMobile ?
+                                {...(isMobileLocal ?
                                     { onClick: () => onMobileClick('iphone') }
                                     :
                                     {
@@ -222,8 +212,7 @@ export default function NavBar() {
                                 className=' cursor-pointer'
                             >iPhone</span>
                             <span
-                                {
-                                ...(isMobile
+                                {...(isMobileLocal
                                     ?
                                     { onClick: () => onMobileClick('mac') }
                                     :
@@ -231,14 +220,11 @@ export default function NavBar() {
                                         onMouseEnter: () => onMouseEnter('mac'),
                                         onMouseLeave: onMouseLeave
                                     }
-                                )
-                                }
-
+                                )}
                                 className=' cursor-pointer'
                             >Mac</span>
                             <span
-                                {
-                                ...(isMobile
+                                {...(isMobileLocal
                                     ?
                                     {
                                         onClick: () => onMobileClick('vision')
@@ -248,14 +234,11 @@ export default function NavBar() {
                                         onMouseEnter: () => onMouseEnter('vision'),
                                         onMouseLeave: onMouseLeave
                                     }
-                                )
-                                }
-
+                                )}
                                 className=' cursor-pointer'
                             >Vision</span>
                             <span
-                                {
-                                ...(isMobile
+                                {...(isMobileLocal
                                     ?
                                     { onClick: () => onMobileClick('contact') }
                                     :
@@ -263,9 +246,7 @@ export default function NavBar() {
                                         onMouseEnter: () => onMouseEnter('contact'),
                                         onMouseLeave: onMouseLeave
                                     }
-                                )
-                                }
-
+                                )}
                                 className=' cursor-pointer'
                             >Contact</span>
                         </div>

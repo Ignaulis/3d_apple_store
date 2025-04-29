@@ -24,7 +24,7 @@ export default function CartCon() {
                                     <CartCard />
                                     <div className="flex flex-col items-center">
                                         <div className="md:w-1/2 w-full px-5 flex justify-between">
-                                            <button className="text-2xl font-extralight text-white border-2 hover:border-gray-800 hover:bg-white bg-gray-800 hover:text-gray-800 transition-all duration-100 cursor-pointer py-1 px-10 rounded-xl">Checkout</button>
+                                            <Link to={'/checkout'} className="text-2xl font-extralight text-white border-2 hover:border-gray-800 hover:bg-white bg-gray-800 hover:text-gray-800 transition-all duration-100 cursor-pointer py-1 px-10 rounded-xl">Checkout</Link>
                                             <span className="text-3xl">Total: ${total}</span>
                                         </div>
                                     </div></div>
