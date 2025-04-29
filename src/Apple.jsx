@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar/NavBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cart from "./Pages/Cart";
 import Checkout from "./components/Cart/Checkout/Checkout";
+import Modal from "./components/Modal";
 
 
 export default function Apple() {
@@ -15,6 +16,7 @@ export default function Apple() {
         <ShopContextProvider>
             <BrowserRouter>
                 <NavBar />
+                <Modal />
                 <Routes>
                     <Route path="/" element={<Home />}/>
                     <Route path="/products/:categoryId" element={<Products />}/>

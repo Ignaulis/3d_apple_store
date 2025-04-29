@@ -2,15 +2,14 @@ import { useContext } from 'react';
 import { ShopContext } from '../../../Context/ShopContext';
 
 const ConfirmOrder = ({ onPrevious, onSubmit, shippingInfo, cardDetails, paymentMethod }) => {
-    const { order } = useContext(ShopContext);
-
+    const { order} = useContext(ShopContext);
 
     const total = order.reduce((sum, item) => sum + item.price, 0);
 
     const handlePlaceOrder = () => {
 
-        console.log('Order placed!', { order, shippingInfo, paymentMethod });
         onSubmit();
+
     };
 
     return (
@@ -30,7 +29,7 @@ const ConfirmOrder = ({ onPrevious, onSubmit, shippingInfo, cardDetails, payment
             <div className="mb-6 border p-4 rounded">
                 <h3 className="font-semibold mb-2">Payment Information</h3>
                 <p>Payment Method: {paymentMethod}</p>
-                {paymentMethod === 'Credit Card' && (
+                {paymentMethod === 'creditCard' && (
                     <>
                         <p>Card Number: {cardDetails.cardNumber}</p>
                         <p>Expiry Date: {cardDetails.expiryDate}</p>
@@ -62,13 +61,13 @@ const ConfirmOrder = ({ onPrevious, onSubmit, shippingInfo, cardDetails, payment
                 <button
                     type="button"
                     onClick={onPrevious}
-                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
                 >
                     Back to Payment
                 </button>
                 <button
                     onClick={handlePlaceOrder}
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
                 >
                     Place Order
                 </button>

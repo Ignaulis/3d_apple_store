@@ -4,3 +4,17 @@
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
+
+.absolute.bottom-0.left-0.h-1.bg-blue-500.transition-all.ease-linear {
+    transition-property: width;
+    transition-duration: 4000ms;
+    transition-timing-function: linear;
+}
+
+.w-modal0 {
+    width: 0 !important;
+}
+
+.w-modalF {
+    width: 100%;
+}

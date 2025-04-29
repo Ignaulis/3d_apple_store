@@ -1,20 +1,84 @@
+import React, { useState, useContext } from 'react';
+import { ShopContext } from '../../../Context/ShopContext';
 
 const PaymentInformation = ({ onNext, onPrevious, cardDetails, setCardDetails, paymentMethod, setPaymentMethod }) => {
+    const { setShowModal, setModalText } = useContext(ShopContext);
 
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
     };
 
-    const handleCardDetailsChange = (event) => {
-        const { name, value } = event.target;
+    const handleCardNumberChange = (event) => {
+        let { value } = event.target;
+        value = value.replace(/\D/g, '');
+        value = value.replace(/(\d{4})/g, '$1 ').trim().slice(0, 19);
         setCardDetails(prevDetails => ({
             ...prevDetails,
-            [name]: value,
+            cardNumber: value,
+        }));
+    };
+
+    const handleExpiryDateChange = (event) => {
+        let { value } = event.target;
+        value = value.replace(/\D/g, '');
+        if (value.length > 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2, 4);
+        }
+        value = value.slice(0, 5);
+        setCardDetails(prevDetails => ({
+            ...prevDetails,
+            expiryDate: value,
+        }));
+    };
+
+    const handleCVVChange = (event) => {
+        let { value } = event.target;
+        value = value.replace(/\D/g, '').slice(0, 3);
+        setCardDetails(prevDetails => ({
+            ...prevDetails,
+            cvv: value,
         }));
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (paymentMethod === '') {
+            setModalText('Please select a payment method.');
+            setShowModal(true);
+            return;
+        }
+        if (paymentMethod === 'creditCard') {
+            if (!cardDetails.cardNumber) {
+                setModalText('Please enter your card number.');
+                setShowModal(true);
+                return;
+            }
+            if (cardDetails.cardNumber.replace(/\D/g, '').length < 12 || cardDetails.cardNumber.replace(/\D/g, '').length > 16) {
+                setModalText('Please enter a valid card number (12-16 digits).');
+                setShowModal(true);
+                return;
+            }
+            if (!cardDetails.expiryDate || cardDetails.expiryDate.length !== 5 || !/^\d{2}\/\d{2}$/.test(cardDetails.expiryDate)) {
+                setModalText('Please enter the expiry date in MM/YY format.');
+                setShowModal(true);
+                return;
+            }
+            const [month, year] = cardDetails.expiryDate.split('/');
+            const currentYear = new Date().getFullYear() % 100;
+            const currentMonth = new Date().getMonth() + 1;
+            const parsedMonth = parseInt(month, 10);
+            const parsedYear = parseInt(year, 10);
+            if (parsedYear < currentYear || (parsedYear === currentYear && parsedMonth < currentMonth)) {
+                setModalText('Please enter a valid expiry date.');
+                setShowModal(true);
+                return;
+            }
+            if (!cardDetails.cvv || cardDetails.cvv.length !== 3 || !/^\d{3}$/.test(cardDetails.cvv)) {
+                setModalText('Please enter a valid 3-digit CVV code.');
+                setShowModal(true);
+                return;
+            }
+        }
         console.log('Payment Method:', paymentMethod);
         console.log('Card Details:', cardDetails);
         onNext();
@@ -35,7 +99,6 @@ const PaymentInformation = ({ onNext, onPrevious, cardDetails, setCardDetails, p
                             checked={paymentMethod === 'creditCard'}
                             onChange={handlePaymentMethodChange}
                             className="mr-2"
-                            required
                         />
                         <label htmlFor="creditCard" className="text-gray-700 text-sm">Credit Card</label>
                     </div>
@@ -62,9 +125,8 @@ const PaymentInformation = ({ onNext, onPrevious, cardDetails, setCardDetails, p
                                 id="cardNumber"
                                 name="cardNumber"
                                 value={cardDetails.cardNumber}
-                                onChange={handleCardDetailsChange}
+                                onChange={handleCardNumberChange}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                required
                             />
                         </div>
                         <div className="flex gap-2">
@@ -75,10 +137,9 @@ const PaymentInformation = ({ onNext, onPrevious, cardDetails, setCardDetails, p
                                     id="expiryDate"
                                     name="expiryDate"
                                     value={cardDetails.expiryDate}
-                                    onChange={handleCardDetailsChange}
+                                    onChange={handleExpiryDateChange}
                                     placeholder="MM/YY"
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    required
                                 />
                             </div>
                             <div className="w-1/2">
@@ -88,9 +149,8 @@ const PaymentInformation = ({ onNext, onPrevious, cardDetails, setCardDetails, p
                                     id="cvv"
                                     name="cvv"
                                     value={cardDetails.cvv}
-                                    onChange={handleCardDetailsChange}
+                                    onChange={handleCVVChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    required
                                 />
                             </div>
                         </div>
@@ -101,20 +161,13 @@ const PaymentInformation = ({ onNext, onPrevious, cardDetails, setCardDetails, p
                     <button
                         type="button"
                         onClick={onPrevious}
-                        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        className="bg-gray-300 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
                     >
                         Back to Shipping
                     </button>
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        disabled={
-                            paymentMethod === '' ||
-                            (paymentMethod === 'creditCard' &&
-                                (cardDetails.cardNumber === '' ||
-                                cardDetails.expiryDate === '' ||
-                                cardDetails.cvv === ''))
-                        }
+                        className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
                     >
                         Continue to Confirmation
                     </button>

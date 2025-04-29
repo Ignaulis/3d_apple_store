@@ -7,7 +7,7 @@ import { ShopContext } from '../../../Context/ShopContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function Checkout() {
-    const {setOrder} = useContext(ShopContext)
+    const {setOrder, setShowModal, setModalText } = useContext(ShopContext)
     const [checkoutStage, setCheckoutStage] = useState(1);
     const [shippingInfo, setShippingInfo] = useState({
         firstName: '',
@@ -42,7 +42,8 @@ export default function Checkout() {
     const navigate = useNavigate()
 
     const handleSubmitOrder = () => {
-        alert('Approved!');
+        setModalText('Order placed!')
+        setShowModal(true)
         setCheckoutStage(1);
         setOrder([])
         navigate('/')

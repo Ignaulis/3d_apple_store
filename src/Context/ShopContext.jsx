@@ -9,6 +9,8 @@ export const ShopContextProvider = ({ children }) => {
     const [orderTrue, setOrderTrue] = useState(false)
     const [order, setOrder] = useState([])
     const isMobile = innerWidth <= 550
+    const [modalText, setModalText] = useState('')
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         const getData = async () => {
@@ -26,7 +28,9 @@ export const ShopContextProvider = ({ children }) => {
                 setOrderTrue,
                 isMobile,
                 order,
-                setOrder
+                setOrder,
+                modalText, setModalText,
+                showModal, setShowModal
             }}
         >
             {children}
