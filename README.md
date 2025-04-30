@@ -1,6 +1,6 @@
 # 🍎 3D Apple Store
 
-An immersive, fully responsive Apple-inspired e-commerce experience with interactive 3D product models — built using React, Three.js, TailwindCSS, and Vite.
+An immersive, fully responsive Apple-inspired e-commerce experience with interactive 3D product models — built using React, R3F, TailwindCSS, and Vite.
 
 ---
 
@@ -58,6 +58,13 @@ An immersive, fully responsive Apple-inspired e-commerce experience with interac
 
 ---
 
+## 📸 Screenshots
+
+![App Preview1](public/apple.png)
+![App Preview2](public/apple2.png)
+![App Preview2](public/apple_mobile.png)
+
+---
 
 ## 🛠️ Installation & Usage
 
@@ -76,17 +83,6 @@ An immersive, fully responsive Apple-inspired e-commerce experience with interac
    npm run dev
    ```
 
----
-
-## 📸 Screenshots
-
-*Coming soon – interactive previews of the 3D models and interface*
-
----
-
-## 📬 Contact
-
-For feedback or questions: **your.email@example.com**
 
 ---
 
