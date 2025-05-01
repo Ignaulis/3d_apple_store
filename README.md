@@ -2,7 +2,7 @@
 
 An immersive, fully responsive Apple-inspired e-commerce experience with interactive 3D product models — built using React, R3F, TailwindCSS, and Vite.
 
----
+## [LIVE PREVIEW!](https://ignaulis.github.io/3d_apple_store/)
 
 ## 🧠 Features
 
