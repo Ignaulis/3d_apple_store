@@ -70,7 +70,7 @@ An immersive, fully responsive Apple-inspired e-commerce experience with interac
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/yourusername/3d-apple-store.git
+   git clone https://github.com/Ignaulis/3d_apple_store.git
    ```
 
 2. **Install dependencies**  
