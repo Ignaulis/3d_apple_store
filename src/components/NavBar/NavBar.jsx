@@ -98,7 +98,7 @@ export default function NavBar() {
                 <div className="py-3 flex justify-center mx-6">
                     <div className="w-200 text-gray-200 text-md flex justify-between items-center">
                         <div>
-                            <Link to={'/'}><img
+                            <Link to={'/3d_apple_store/'}><img
                                 src={Apple}
                                 alt='apple'
                                 className='w-6 cursor-pointer'

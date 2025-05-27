@@ -18,11 +18,11 @@ export default function Apple() {
                 <NavBar />
                 <Modal />
                 <Routes>
-                    <Route path="/" element={<Home />}/>
-                    <Route path="/products/:categoryId" element={<Products />}/>
-                    <Route path="/product/:productId" element={<Product />}/>
-                    <Route path="/cart" element={<Cart />}/>
-                    <Route path="/checkout" element={<Checkout />}/>
+                    <Route path="/3d_apple_store/" element={<Home />}/>
+                    <Route path="/3d_apple_store/products/:categoryId" element={<Products />}/>
+                    <Route path="/3d_apple_store/product/:productId" element={<Product />}/>
+                    <Route path="/3d_apple_store/cart" element={<Cart />}/>
+                    <Route path="/3d_apple_store/checkout" element={<Checkout />}/>
                     <Route path="*" element={<Page404 />}/>
                 </Routes>
             </BrowserRouter>

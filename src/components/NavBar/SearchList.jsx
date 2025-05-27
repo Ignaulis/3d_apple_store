@@ -32,7 +32,7 @@ export default function SearchList({ text, setText, searchVisible, setSearchVisi
                 find.map((item, index) => (
                     <div key={index} className="w-2/3 flex gap-5 items-center">
                         <img className="w-8 h-8 rounded" src={item.image} alt={item.title} />
-                        <Link to={`/product/${item.id}`} onClick={handleSearchClick} className="cursor-pointer text-gray-200 text-2xl hover:text-white">{item.title}</Link>
+                        <Link to={`/3d_apple_store/product/${item.id}`} onClick={handleSearchClick} className="cursor-pointer text-gray-200 text-2xl hover:text-white">{item.title}</Link>
                     </div>
                 ))
             }

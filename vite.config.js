@@ -5,6 +5,7 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/3d_apple_store/',
   plugins: [
     react(),
     tailwindcss(),
